@@ -94,7 +94,11 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {
+            "baseHref": "/Ky/",
+            "dir": "dist/Ky/browser"
+          }
         }
       }
     }
