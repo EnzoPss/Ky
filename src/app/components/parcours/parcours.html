@@ -1,1 +1,67 @@
-<p>parcours works!</p>
+<section id="parcours">
+  <h3 id="titre">Parcours</h3>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <img src="img/parcours/Lycee Melun.png" alt="BTS SIO">
+        <h3>BTS SIO - SLAM</h3>
+        <p>2024 - 2026</p>
+        <a href="#" (click)="openModal(modalBts, $event)" class="btn-link">Voir plus</a>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <img src="img/parcours/Lycee.png" alt="Baccalauréat">
+        <h3>Baccalauréat</h3>
+        <p>2021 - 2024</p>
+        <a href="#" (click)="openModal(modalBac, $event)" class="btn-link">Voir plus</a>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <img src="img/parcours/College.jpg" alt="Collège">
+        <h3>Collège</h3>
+        <p>2017 - 2021</p>
+        <a href="#" (click)="openModal(modalCollege, $event)" class="btn-link">Voir plus</a>
+      </div>
+      <div class="timeline-dot"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ======= MODALES ======= -->
+<ng-template #modalBts>
+  <h2>BTS SIO - SLAM (2024 - 2026)</h2>
+  <p>Description du BTS...</p>
+</ng-template>
+
+<ng-template #modalBac>
+  <h2>Baccalauréat (2021 - 2024)</h2>
+  <p>Description du bac...</p>
+</ng-template>
+
+<ng-template #modalCollege>
+  <h2>Collège (2017 - 2021)</h2>
+  <p>Description collège...</p>
+</ng-template>
+
+<div class="modal-overlay" *ngIf="activeTemplate" (click)="closeModal()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <div class="modal-actions">
+      <button class="modal-back" *ngIf="previousTemplate" (click)="goBack()">
+        &#8592;
+      </button>
+      <button class="modal-close" (click)="closeModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <ng-container *ngTemplateOutlet="activeTemplate"></ng-container>
+    </div>
+  </div>
+</div>

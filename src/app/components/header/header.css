@@ -1,0 +1,209 @@
+/* ============================================
+   NAVBAR WRAPPER
+   ============================================ */
+.navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+
+  background-color: transparent;
+
+  box-shadow: 0 3px 15px rgba(80, 140, 180, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+
+  transition:
+    box-shadow 0.4s ease,
+    backdrop-filter 0.4s ease;
+}
+
+.navbar-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/img/bois2.png'); /* ton image ici */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  /* Superposition blanche pour éclaircir */
+  background-color: rgba(255, 255, 255, 0.1); /* ajuste l’opacité entre 0.1 et 0.4 selon le rendu */
+  background-blend-mode: lighten; /* mélange l'image et la couleur blanche */
+
+  opacity: 1; /* complètement visible au départ */
+  transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
+  z-index: -1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Mode scroll : image s'estompe */
+.navbar-wrapper.scrolled::before {
+  opacity: 0;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.125rem 1.9rem;  /* 0.75rem × 1.5 = 1.125rem */
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   IDENTITÉ
+   ============================================ */
+.navbar-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.95rem;
+  flex-shrink: 0;
+}
+
+.avatar-wrapper {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2.5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 3px 10px rgba(80, 140, 180, 0.2);
+  flex-shrink: 0;
+  transition: border-color 0.4s ease;
+}
+
+.navbar-wrapper.scrolled .avatar-wrapper {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.identity-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+/* Couleurs texte par défaut (avant scroll) */
+.identity-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff; /* blanc au départ */
+  letter-spacing: 0.01em;
+  transition: color 0.4s ease;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.identity-tagline {
+  font-size: 0.9rem;
+  color: #ffffff; /* blanc au départ */
+  font-style: italic;
+  margin-top: 0.12rem;
+  transition: color 0.4s ease;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Couleurs texte au scroll */
+.navbar-wrapper.scrolled .identity-name {
+  color: #1a3a5c; /* bleu actuel */
+}
+
+.navbar-wrapper.scrolled .identity-tagline {
+  color: #3a6a8a; /* bleu clair */
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.navbar-nav {
+  margin-left: auto;
+}
+
+.navbar-nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-nav li a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.05rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #D1E2F3; /* blanc au départ */
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.15s ease;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.navbar-nav li a:hover {
+  background-color: rgba(255, 255, 255, 0.55);
+  color: #0d2a45;
+  transform: translateY(-1px);
+}
+
+/* Couleurs nav au scroll */
+.navbar-wrapper.scrolled .navbar-nav li a {
+  color: #1a3a5c; /* bleu actuel */
+}
+
+.navbar-wrapper.scrolled .navbar-nav li a:hover {
+  background-color: rgba(173, 210, 235, 0.35);
+  color: #0d2a45;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .identity-tagline {
+    display: none;
+  }
+
+  .navbar-nav li a span {
+    display: none;
+  }
+
+  .navbar-nav li a {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.95rem;
+  }
+
+  .navbar-container {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .identity-name {
+    font-size: 1rem;
+  }
+
+  .avatar-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+}

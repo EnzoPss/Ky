@@ -1,0 +1,189 @@
+/* ============================================
+   FOOTER WRAPPER
+   ============================================ */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  padding: 2.5rem 2rem;
+  margin-top: 4rem;
+
+  /* Image de fond transparente */
+  background-image: url('/img/bois2.png'); /* Chemin de ton image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Transparence globale du footer */
+  background-color: rgba(255, 255, 255, 0.2);
+  
+  /* Effet flou pour lisibilité */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 -3px 15px rgba(80, 140, 180, 0.15);
+
+  color: #1a3a5c;
+}
+
+/* ============================================
+   SECTIONS
+   ============================================ */
+.footer-left,
+.footer-right {
+  flex: 1 1 300px;
+}
+
+/* ============================================
+   TITRES
+   ============================================ */
+.footer h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+  color: #D1E2F3; /* bleu comme le header */
+}
+
+/* ============================================
+   TEXTE
+   ============================================ */
+.footer p,
+.footer a {
+  font-size: 0.95rem;
+  color: #7fb2d3; /* bleu secondaire comme tagline */
+  margin: 0.25rem 0;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #0d2a45; /* bleu foncé comme hover header */
+  text-decoration: underline;
+}
+
+.footer-desc {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* ============================================
+   HEADER DROITE
+   ============================================ */
+.footer-right-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Bouton scroll top */
+.scroll-top-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 8px;
+  text-decoration: none;
+
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #1a3a5c; /* bleu header */
+
+  transition: all 0.25s ease;
+}
+
+.scroll-top-btn:hover {
+  background-color: rgba(255, 255, 255, 0.75);
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   FORMULAIRE
+   ============================================ */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.6rem 0.7rem;
+  border-radius: 6px;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.6);
+
+  font-size: 0.9rem;
+  color: #1a3a5c; /* texte bleu header */
+
+  transition: all 0.25s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: rgba(80, 140, 180, 0.5);
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* textarea taille */
+.contact-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* bouton */
+.contact-form button {
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #1a3a5c; /* bleu header */
+  color: white;
+
+  font-size: 0.95rem;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.contact-form button:hover {
+  background-color: #0d2a45; /* bleu foncé hover */
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    gap: 1.8rem;
+    padding: 2rem 1.4rem;
+  }
+
+  .footer-right-header {
+    align-items: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer h3 {
+    font-size: 1.05rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.85rem;
+  }
+}

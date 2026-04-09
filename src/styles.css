@@ -1,1 +1,75 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===== RESET ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== BODY & BASE ===== */
+body {
+  background: radial-gradient(circle at top, #eaf4fb, #d6eaf7 60%, #c4e0f2 100%);
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Georgia, sans-serif;
+  color: #1a3a5c;
+  line-height: 1.6;
+}
+
+/* ===== TYPOGRAPHIE ===== */
+h1, h2, h3 {
+  color: #1a3a5c;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  color: #3a6a8a;
+}
+
+a {
+  color: #D1E2F3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: rgba(139, 90, 43, 0.9);
+}
+
+/* ===== LAYOUT ===== */
+.layout {
+  display: flex;
+  position: relative;
+}
+
+.main {
+  flex: 1;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d6eaf7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 90, 43, 0.5);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 90, 43, 0.8);
+}
+
+/* ===== SÉLECTION ===== */
+::selection {
+  background: rgba(173, 210, 235, 0.5);
+  color: #1a3a5c;
+}
+
+/* ===== BACKGROUND ===== */
+.background {
+  display: none;
+}
