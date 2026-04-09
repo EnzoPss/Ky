@@ -89,6 +89,31 @@ html, body {
   margin-top: 0.2rem;
 }
 
+/* ===== DETAILS PROFIL ===== */
+.profil-details {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.profil-details li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #1a3a5c;
+}
+
+.detail-icon {
+  font-size: 0.95rem;
+  width: 1.2rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .profil-container {
@@ -125,5 +150,13 @@ html, body {
 
   .profil-role {
     font-size: 0.9rem;
+  }
+
+  .profil-details {
+    align-items: center;
+  }
+
+  .profil-details li {
+    justify-content: center;
   }
 }
