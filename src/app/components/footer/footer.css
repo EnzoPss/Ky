@@ -11,7 +11,7 @@
   margin-top: 4rem;
 
   /* Image de fond transparente */
-  background-image: url('/img/fonds/bois2.png'); /* Chemin de ton image */
+  background-image: url('../../../../public/img/fonds/bois2.png'); /* Chemin de ton image */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
