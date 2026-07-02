@@ -1,5 +1,5 @@
-<header class="navbar-wrapper" [class.scrolled]="isScrolled">
-  <div class="navbar-container">
+<header class="navbar-wrapper" [class.scrolled]="isScrolled" [class.loaded]="loaded">
+    <div class="navbar-container">
 
     <!-- DROITE : Navigation -->
     <nav class="navbar-nav">
@@ -14,6 +14,12 @@
           <a href="#parcours">
             <i class="bi bi-arrow-up"></i>
             <span>Parcours</span>
+          </a>
+        </li>
+        <li>
+          <a href="#post-bac">
+            <i class="bi bi-briefcase-fill"></i>
+            <span>Expérience</span>
           </a>
         </li>
         <li>

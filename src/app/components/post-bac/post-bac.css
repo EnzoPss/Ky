@@ -1,0 +1,128 @@
+/* ======= SECTION POST-BAC ======= */
+#post-bac {
+  padding: 60px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background: transparent;
+}
+
+#post-bac h3#titre {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 40px;
+  color: #1a3a5c;
+  letter-spacing: 0.5px;
+}
+
+/* ======= ACCORDION ======= */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.accordion-item {
+  background: rgba(173, 210, 235, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(139, 90, 43, 0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(101, 67, 33, 0.15);
+  transition: border-color 0.3s ease;
+}
+
+.accordion-item.open {
+  border-color: rgba(139, 90, 43, 0.45);
+}
+
+/* ======= HEADER (toujours visible) ======= */
+.accordion-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.accordion-heading {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.15rem;
+}
+
+.accordion-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8B5A2B;
+}
+
+.accordion-company {
+  font-size: 0.85rem;
+  color: #1a3a5c;
+  font-style: italic;
+}
+
+.accordion-date {
+  font-size: 0.8rem;
+  color: #8B5A2B;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.accordion-icon {
+  font-size: 0.9rem;
+  color: rgb(78, 168, 228);
+  transition: transform 0.3s ease, color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(180deg);
+  color: #1a3a5c;
+}
+
+/* ======= BODY (dépliable) ======= */
+.accordion-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+
+.accordion-item.open .accordion-body {
+  grid-template-rows: 1fr;
+}
+
+.accordion-body-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.accordion-body-inner p {
+  margin: 0;
+  padding: 0 1.4rem 1.2rem 1.4rem;
+  font-size: 0.9rem;
+  color: #1a3a5c;
+  line-height: 1.6;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 600px) {
+  .accordion-header {
+    flex-wrap: wrap;
+    padding: 0.9rem 1.1rem;
+  }
+
+  .accordion-date {
+    order: 3;
+    width: 100%;
+    margin-top: 0.2rem;
+  }
+}

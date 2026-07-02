@@ -1,49 +1,49 @@
 <section id="parcours">
-  <h3 id="titre">Parcours</h3>
+  <h3 id="titre">Parcours d'études</h3>
 
   <div class="timeline">
 
     <div class="timeline-item">
-      <div class="timeline-card">
-        <img src="img/parcours/..." alt="Suite">
-        <h3>Poursuite d'études</h3>
-        <p>2024 - 2026</p>
-        <a href="#" (click)="openModal(modalBts, $event)" class="btn-link">Voir plus</a>
-      </div>
+      <span class="timeline-date">2017 - 2021</span>
       <div class="timeline-dot"></div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-card">
-        <img src="img/parcours/Lycee.png" alt="Baccalauréat">
-        <h3>Baccalauréat</h3>
-        <p>2021 - 2024</p>
-        <a href="#" (click)="openModal(modalBac, $event)" class="btn-link">Voir plus</a>
-      </div>
-      <div class="timeline-dot"></div>
-    </div>
-
-    <div class="timeline-item">
       <div class="timeline-card">
         <img src="img/parcours/..." alt="Collège">
         <h3>Collège</h3>
-        <p>2017 - 2021</p>
         <a href="#" (click)="openModal(modalCollege, $event)" class="btn-link">Voir plus</a>
       </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="timeline-date">2021 - 2025</span>
       <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <img src="img/parcours/Lycee.png" alt="Baccalauréat">
+        <h3>Baccalauréat</h3>
+        <a href="#" (click)="openModal(modalBac, $event)" class="btn-link">Voir plus</a>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <span class="timeline-date">2025 - 2026</span>
+      <div class="timeline-dot"></div>
+      <div class="timeline-card">
+        <img src="img/parcours/..." alt="Suite">
+        <h3>Poursuite d'études</h3>
+        <a href="#" (click)="openModal(modalBts, $event)" class="btn-link">Voir plus</a>
+      </div>
     </div>
 
   </div>
 </section>
 
-<!-- ======= MODALES ======= -->
+<!-- ======= MODALES (inchangées) ======= -->
 <ng-template #modalBts>
   <h2>Poursuite d'études</h2>
-  <p>Description du BTS...</p>
+  <p>Description de la suite...</p>
 </ng-template>
 
 <ng-template #modalBac>
-  <h2>Baccalauréat (2021 - 2024)</h2>
+  <h2>Baccalauréat (2021 - 2025)</h2>
   <p>Description du bac...</p>
 </ng-template>
 

@@ -1,23 +1,29 @@
 /* ============================================
    NAVBAR WRAPPER
+   Conteneur principal de la navbar, fixé en haut
+   de l'écran en permanence (position: fixed)
    ============================================ */
 .navbar-wrapper {
-  position: fixed;
+  position: fixed;      /* reste collée en haut même au scroll */
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 1000;        /* toujours au-dessus du reste du contenu */
 
-  background-color: transparent;
+  background-color: transparent; /* le vrai fond visuel est géré par ::before (image + blur) */
 
-  box-shadow: 0 3px 15px rgba(80, 140, 180, 0.15);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 3px 15px rgba(80, 140, 180, 0.15); /* légère ombre bleutée pour détacher la navbar du fond */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4); /* fine ligne de séparation semi-transparente */
 
+  /* Anime uniquement l'ombre et le flou de fond au scroll (pas la couleur, gérée ailleurs) */
   transition:
     box-shadow 0.4s ease,
     backdrop-filter 0.4s ease;
 }
 
+/* Pseudo-élément qui porte l'image de fond (bois) + le flou verre dépoli.
+   Séparé du wrapper pour pouvoir faire disparaître l'image au scroll
+   sans toucher au contenu (logo, liens...) */
 .navbar-wrapper::before {
   content: '';
   position: absolute;
@@ -25,66 +31,71 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../../../public/img/fonds/bois2.png'); /* ton image ici */
+  background-image: url('../../../../public/img/fonds/bois2.png'); /* texture bois en fond de navbar */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  
-  /* Superposition blanche pour éclaircir */
-  background-color: rgba(255, 255, 255, 0.1); /* ajuste l’opacité entre 0.1 et 0.4 selon le rendu */
-  background-blend-mode: lighten; /* mélange l'image et la couleur blanche */
 
-  opacity: 1; /* complètement visible au départ */
-  transition: opacity 0.5s ease, backdrop-filter 0.5s ease;
-  z-index: -1;
+  /* Superposition blanche pour éclaircir la texture bois */
+  background-color: rgba(255, 255, 255, 0.1); /* ajuste l'opacité entre 0.1 et 0.4 selon le rendu voulu */
+  background-blend-mode: lighten; /* mélange l'image et la couleur blanche pour l'éclaircir */
+
+  opacity: 1; /* complètement visible tant qu'on n'a pas scrollé */
+  transition: opacity 0.5s ease, backdrop-filter 0.5s ease; /* fondu progressif à l'activation du scroll */
+  z-index: -1; /* reste derrière le contenu de la navbar (logo, nav...) */
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);           /* effet "verre dépoli" sur ce qui défile derrière */
+  -webkit-backdrop-filter: blur(10px);   /* compatibilité Safari */
 }
 
-/* Mode scroll : image s'estompe */
+/* Etat "scrolled" (classe ajoutée en TS quand scrollY > 40px) :
+   l'image de fond bois s'efface et le flou diminue légèrement */
 .navbar-wrapper.scrolled::before {
-  opacity: 0;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  opacity: 0.1;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 /* ============================================
    LAYOUT
+   Structure interne : centrage du contenu et
+   espacement entre logo / identité et navigation
    ============================================ */
 .navbar-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1.125rem 1.9rem;  /* 0.75rem × 1.5 = 1.125rem */
+  justify-content: space-between; /* identité à gauche, nav à droite */
+  max-width: 1200px;  /* empêche le contenu de s'étirer sur très grands écrans */
+  margin: 0 auto;      /* centre le conteneur horizontalement */
+  padding: 1.4rem 1.9rem; /* hauteur de la navbar pilotée ici (augmentée par rapport à l'original 1.125rem) */
   gap: 1.25rem;
   position: relative;
-  z-index: 1;
+  z-index: 1; /* au-dessus du ::before (z-index: -1) */
 }
 
 /* ============================================
    IDENTITÉ
+   Bloc avatar + nom + tagline (partie gauche)
    ============================================ */
 .navbar-identity {
   display: flex;
   align-items: center;
   gap: 0.95rem;
-  flex-shrink: 0;
+  flex-shrink: 0; /* ne rétrécit jamais, même si la nav prend de la place */
 }
 
 .avatar-wrapper {
   width: 58px;
   height: 58px;
-  border-radius: 50%;
-  overflow: hidden;
+  border-radius: 50%;   /* avatar circulaire */
+  overflow: hidden;     /* rogne l'image pour qu'elle reste dans le cercle */
   border: 2.5px solid rgba(255, 255, 255, 0.7);
   box-shadow: 0 3px 10px rgba(80, 140, 180, 0.2);
   flex-shrink: 0;
-  transition: border-color 0.4s ease;
+  transition: border-color 0.4s ease; /* la bordure change de teinte au scroll */
 }
 
+/* Bordure plus discrète une fois scrollé (fond clair, donc moins besoin de contraste) */
 .navbar-wrapper.scrolled .avatar-wrapper {
   border-color: rgba(255, 255, 255, 0.3);
 }
@@ -92,52 +103,53 @@
 .avatar {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* remplit le cercle sans déformer l'image */
 }
 
 .identity-text {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* nom au-dessus de la tagline */
   line-height: 1.2;
 }
 
-/* Couleurs texte par défaut (avant scroll) */
+/* Couleurs texte par défaut (avant scroll, sur fond bois foncé) */
 .identity-name {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #ffffff; /* blanc au départ */
+  color: #ffffff; /* blanc pour contraster sur le fond bois */
   letter-spacing: 0.01em;
-  transition: color 0.4s ease;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  transition: color 0.4s ease; /* changement de couleur progressif au scroll */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3); /* lisibilité renforcée sur l'image de fond */
 }
 
 .identity-tagline {
   font-size: 0.9rem;
-  color: #ffffff; /* blanc au départ */
+  color: #ffffff; /* blanc au départ, même logique que le nom */
   font-style: italic;
   margin-top: 0.12rem;
   transition: color 0.4s ease;
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
-/* Couleurs texte au scroll */
+/* Couleurs texte une fois scrollé (fond devenu clair/transparent) */
 .navbar-wrapper.scrolled .identity-name {
-  color: #1a3a5c; /* bleu actuel */
+  color: #1a3a5c; /* bleu foncé, lisible sur fond clair */
 }
 
 .navbar-wrapper.scrolled .identity-tagline {
-  color: #3a6a8a; /* bleu clair */
+  color: #3a6a8a; /* bleu clair, légèrement moins contrasté que le nom */
 }
 
 /* ============================================
    NAVIGATION
+   Liste des liens (Profil, Parcours, etc.)
    ============================================ */
 .navbar-nav {
-  margin-left: auto;
+  margin-left: auto; /* pousse le bloc nav tout à droite */
 }
 
 .navbar-nav ul {
-  list-style: none;
+  list-style: none; /* retire les puces */
   display: flex;
   align-items: center;
   gap: 0.3rem;
@@ -148,62 +160,99 @@
 .navbar-nav li a {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.5rem; /* espace entre icône et texte du lien */
   padding: 0.55rem 1.05rem;
-  border-radius: 8px;
+  border-radius: 8px; /* effet "pilule" au survol */
   text-decoration: none;
   font-size: 1.05rem;
   font-weight: 500;
-  color: #D1E2F3; /* blanc au départ */
-  transition: color 0.3s ease, background-color 0.3s ease, transform 0.15s ease;
+  color: #D1E2F3; /* bleu très clair par défaut (sur fond bois) */
+  /* color/background-color accélérés (0.3s) pour un changement de couleur plus réactif au scroll,
+     transform pour l'effet hover, opacity pour l'animation d'entrée en cascade (voir plus bas) */
+  transition: color 0.3s ease, background-color 0.3s ease, transform 0.15s ease, opacity 0.7s ease-out;
   text-shadow: 0 1px 3px rgba(0,0,0,0.3);
 }
 
+/* Survol d'un lien : fond blanc translucide + légère élévation */
 .navbar-nav li a:hover {
   background-color: rgba(255, 255, 255, 0.55);
   color: #0d2a45;
-  transform: translateY(-1px);
+  transform: translateY(-2px); /* petit effet de "soulèvement" au survol */
 }
 
-/* Couleurs nav au scroll */
+/* Couleurs des liens une fois scrollé (fond clair) */
 .navbar-wrapper.scrolled .navbar-nav li a {
-  color: #1a3a5c; /* bleu actuel */
+  color: #1a3a5c; /* bleu foncé, cohérent avec le nom au scroll */
 }
 
+/* Survol inversé une fois scrollé : fond foncé + texte clair */
 .navbar-wrapper.scrolled .navbar-nav li a:hover {
-  background-color: rgba(173, 210, 235, 0.35);
-  color: #0d2a45;
+  background-color: #0d2a45;
+  color: #D1E2F3;
 }
 
 /* ============================================
    RESPONSIVE
+   Adaptations pour tablette et mobile
    ============================================ */
 @media (max-width: 768px) {
   .identity-tagline {
-    display: none;
+    display: none; /* masque la tagline pour gagner de la place */
   }
 
   .navbar-nav li a span {
-    display: none;
+    display: none; /* masque le texte des liens, ne garde que les icônes */
   }
 
   .navbar-nav li a {
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0.8rem; /* liens plus compacts */
     font-size: 0.95rem;
   }
 
   .navbar-container {
-    padding: 0.6rem 1.2rem;
+    padding: 0.6rem 1.2rem; /* navbar plus basse sur petit écran */
   }
 }
 
 @media (max-width: 480px) {
   .identity-name {
-    font-size: 1rem;
+    font-size: 1rem; /* nom plus petit sur très petits écrans */
   }
 
   .avatar-wrapper {
     width: 48px;
-    height: 48px;
+    height: 48px; /* avatar réduit pour ne pas surcharger l'espace */
   }
 }
+
+/* ============================================
+   ANIMATION D'ENTRÉE
+   Pilotée par la propriété `loaded` (header.ts),
+   activée juste après le premier rendu du composant
+   ============================================ */
+
+/* Etat initial : navbar invisible et légèrement décalée vers le haut */
+.navbar-wrapper {
+  opacity: 0;
+  transform: translateY(-16px);
+}
+
+/* Une fois `loaded` = true : la navbar descend en fondu */
+.navbar-wrapper.loaded {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1.1s ease-out, transform 1.1s ease-out;
+}
+
+/* Etat initial des liens de nav : invisibles avant l'animation d'entrée */
+.navbar-nav li a {
+  opacity: 0;
+}
+
+/* Stagger : chaque lien apparaît l'un après l'autre avec un délai croissant,
+   créant un effet de cascade plutôt qu'une apparition simultanée */
+.navbar-wrapper.loaded .navbar-nav li:nth-child(1) a { opacity: 1; transition-delay: 0.2s; }
+.navbar-wrapper.loaded .navbar-nav li:nth-child(2) a { opacity: 1; transition-delay: 0.3s; }
+.navbar-wrapper.loaded .navbar-nav li:nth-child(3) a { opacity: 1; transition-delay: 0.4s; }
+.navbar-wrapper.loaded .navbar-nav li:nth-child(4) a { opacity: 1; transition-delay: 0.5s; }
+.navbar-wrapper.loaded .navbar-nav li:nth-child(5) a { opacity: 1; transition-delay: 0.6s; }

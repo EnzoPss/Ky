@@ -10,15 +10,20 @@ import { CommonModule } from '@angular/common';
 })
 export class Header implements OnInit {
   isScrolled = false;
+  loaded = false; // 👈 AJOUT : pilote l'animation d'entrée
 
   // --- Personnalisation ---
-  profileImage = 'https://www.photofunky.net/output/image/b/a/0/9/ba0992/photofunky.gif'; // Remplace par le chemin de ton image
+  profileImage = 'https://www.photofunky.net/output/image/b/a/0/9/ba0992/photofunky.gif';
   firstName = 'Kyliann';
-  lastName = 'MEDERIC '/*Nanette'*/;
+  lastName = 'MEDERIC';
   tagline = 'Commercial';
   // ------------------------
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    requestAnimationFrame(() => {
+      this.loaded = true; // 👈 AJOUT
+    });
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {

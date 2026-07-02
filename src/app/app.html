@@ -1,18 +1,42 @@
-<div class="layout">
+<div class="layout" [class.loaded]="loaded">
+
+  <div class="bg-grid"></div>
+  <div class="bg-carbon"></div>
+  <div class="bg-checker"></div>
+
+  <div class="bg-circuit">
+    <span
+      *ngFor="let node of nodes"
+      class="node"
+      [style.top.%]="node.top"
+      [style.left.%]="node.left"
+      [style.width.px]="node.size"
+      [style.height.px]="node.size"
+      [style.animation-delay.s]="node.delay"
+      [style.animation-duration.s]="node.duration">
+    </span>
+  </div>
 
   <app-header></app-header>
 
   <main class="main">
-
     <app-profil></app-profil>
-
     <app-parcours></app-parcours>
+    <app-post-bac></app-post-bac>
 <!--
     <app-competences></app-competences>
 -->
     <router-outlet></router-outlet>
-
   </main>
+
+  <button
+  class="back-to-top"
+  [class.visible]="showBackToTop"
+  [style.bottom.px]="backToTopBottom"
+  (click)="scrollToTop()"
+  aria-label="Retour en haut">
+  <i class="bi bi-arrow-up"></i>
+  </button>
 
 </div>
 
